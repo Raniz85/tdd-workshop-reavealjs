@@ -9,3 +9,11 @@ log/*.log
 tmp/**
 node_modules/
 .sass-cache
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

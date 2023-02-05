@@ -1,40 +1,263 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+        <title>TDD Workshop</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/white.css">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/solarized-light.css">
+    </head>
+    <body>
+        <div class="brand"><img src="icons/factor10.svg" alt="factor10 logo"/></div>
+        <div class="wave">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1512 80">
+                <path fill="currentcolor" d="M.64 28C78.33 11.29 341.02-9.82 707.87 5.04c382.11 15.48 695.18 9.04 804.13 0V80H0V28h.64Z"></path>
+            </svg>
+        </div>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>TDD Workshop</h1>
+                    <div class="author">
+                        <div>
+                        Daniel Raniz Raneland<br/>
+                        Coding Software Architect @ factor10
+                        </div>
+                        <ul class="contact">
+                            <li><img class="mdi" src="icons/firefox.svg" />raniz.blog</li>
+                            <li><img class="mdi" src="icons/email.svg" />raniz@factor10.com</li>
+                            <li><img class="mdi" src="icons/linkedin.svg" />/in/raneland</li>
+                            <li><img class="mdi" src="icons/github.svg" />Raniz85</li>
+                            <li><img class="mdi" src="icons/gitlab.svg" />raniz</li>
+                            <li><img class="mdi" src="icons/mastodon.svg" />raniz@mastodon.online</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2>Testing Temperature Check</h2>
+                </section>
+                <section>
+                    <h2>What is Test Driven Development?</h2>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+                    <p class="fragment">Letting the tests <i>drive</i> the development</p>
+                </section>
+                <section>
+                    <h2>Why do <em>I</em> practice TDD?</h2>
+                    <section>
+                    </section>
+                    <section>
+                        By writing the test first, the code is by definition testable.
+                    </section>
+                    <section>
+                        <h3>Three guiding principles:</h3>
+                        <ul>
+                            <li class="fragment">Keep It Simple, Stupid</li>
+                            <li class="fragment">You Aren't Going to Need It</li>
+                            <li class="fragment">Don't Repeat Yourself</li>
+                        </ul>
+                        <p class="fragment">TDD helps with <i>two</i> of these</p>
+                    </section>
+                    <section>
+                        <h2>Keep It Simple Stupid</h2>
+                        <p class="fragment text-left">By letting the tests incrementally drive the implementation it is easy to keep
+                            changes minimal between each iteration and therefore keep the code as simple as possible.</p>
+                    </section>
+                    <section>
+                        <h2>You Aren't Going to Need It</h2>
+                        <p class="fragment text-left">By not making more changes to the code than is necessary to pass all test cases,
+                            we prevent ourselves from thinking ahead and creating complex, adaptable solutions that may never be needed.</p>
+                        <p class="fragment" style="font-style: italic">If no test requires the code - don't write it</p>
+                    </section>
+                    </section>
+                <section>
+                    <h2>TDD Distilled</h2>
+                    <ol>
+                        <li class="fragment">Write a test</li>
+                        <li class="fragment">
+                            <span class="fragment highlight-red">
+                                Make it fail
+                            </span>
+                        </li>
+                        <li class="fragment">
+                            <span class="fragment highlight-green">
+                                Make it pass
+                            </span>
+                        </li>
+                        <li class="fragment">Refactor your code</li>
+                        <li class="fragment">Repeat</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>Why do we fail?</h2>
+                    <section>
+                        <pre class="fragment"><code class="language-java" data-trim data-line-numbers>
+class PersonTest {
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    @Test
+    public void testConstructor() {
+        Person person = new Person("John O'Connor");
+        assertNotNull(person);
+    }
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code class="language-python" data-trim data-line-numbers>
+def call_method(method, *args):
+    method(*args)
+
+class Tests(unittest.TestCase):
+
+    def test_call_method(self):
+        # Given a method to call
+        mock = MagicMock()
+
+        # when the call_method method is called
+        call_method(mock, (1, 2, 3))
+
+        # the mock is called with the expected arguments
+        assert mock.called_with(1, 2, 3)
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <h2>What should I test?</h2>
+                    <section>
+                        <p class="fragment text-left">
+                            Everything should be tested, but everything doesn't need a test case.
+                        </p>
+                    </section>
+                    <section>
+                            <pre><code class="language-python" data-trim data-line-numbers="10">
+def circle_area(diameter):
+    radius =  diameter / 2
+    return math.PI * radius ** 2
+                        </code></pre>
+                    </section>
+                    <section>
+                            <pre><code class="language-python" data-trim data-line-numbers="10">
+def diameter(radius):
+    return diameter / 2
+
+def circle_area(diameter):
+    radius =  diameter / 2
+    return math.PI * radius ** 2
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <h2>Quick Live Demo</h2>
+                </section>
+                <section>
+                    <h2>Your Turn!</h2>
+                    <p>
+                        <a href="https://raniz85.github.io/ceo-bowling-kata/">https://raniz85.github.io/ceo-bowling-kata/</a>
+                        <br/>
+                        <a href="https://github.com/tdd-starters/">https://github.com/tdd-starters/</a>
+                    </p>
+                </section>
+                <section>
+                    <h2>Intermission</h2>
+                    <ul>
+                        <li class="fragment">What is hard?</li>
+                        <li class="fragment">How many have reached part 2 or beyond?</li>
+                        <li class="fragment">How many have strictly followed the TDD cycle?</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>TDD for cheaters</h2>
+                    <ol>
+                        <li class="fragment">Be too excited to remember to write the test first</li>
+                        <li class="fragment">Write a bunch of code</li>
+                        <li class="fragment">Remember that you should have started with the test</li>
+                        <li class="fragment">Comment out your code</li>
+                        <li class="fragment">Write a test</li>
+                        <li class="fragment">
+                            <span class="fragment highlight-red">
+                                Make sure it fails for the right reason
+                            </span>
+                        </li>
+                        <li class="fragment">
+                            <span class="fragment highlight-green">
+                                Make it pass
+                            </span>
+                        </li>
+                        <li class="fragment">Refactor your code</li>
+                        <li class="fragment">Repeat (from 5)</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>If you finish early</h2>
+                    <ul>
+                        <li>FizzBuzz</li>
+                        <li>RPN Calculator</li>
+                        <li>
+                            <a href="https://adventofcode.com/">https://adventofcode.com/</a>
+                            <ul style="list-style: none">
+                                <li>2021 - day 6</li>
+                                <li>2021 - day 21</li>
+                                <li>2022 - day 7</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>The end...</h2>
+                    <ul>
+                        <li class="fragment">What was the hardest?</li>
+                        <li class="fragment">How many finished the CEO Bowling kata?</li>
+                        <li class="fragment">How many have strictly followed the TDD cycle?</li>
+                        <li class="fragment">
+                            Will you continue with TDD when you leave the room?
+                            <ul>
+                                <li class="fragment">Completely?</li>
+                                <li class="fragment">Now and then?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Thanks!</h1>
+                    <div class="author">
+                        <div>
+                            Daniel Raniz Raneland<br/>
+                            Coding Software Architect @ factor10
+                        </div>
+                        <ul class="contact">
+                            <li><img class="mdi" src="icons/firefox.svg" />raniz.blog</li>
+                            <li><img class="mdi" src="icons/email.svg" />raniz@factor10.com</li>
+                            <li><img class="mdi" src="icons/linkedin.svg" />/in/raneland</li>
+                            <li><img class="mdi" src="icons/github.svg" />Raniz85</li>
+                            <li><img class="mdi" src="icons/gitlab.svg" />raniz</li>
+                            <li><img class="mdi" src="icons/mastodon.svg" />raniz@mastodon.online</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+                width: 1920,
+                height: 1080,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
 </html>
