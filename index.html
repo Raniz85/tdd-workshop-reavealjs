@@ -254,10 +254,22 @@ def circle_area(diameter):
                 hash: true,
                 width: 1920,
                 height: 1080,
+                pdfMaxPagesPerSlide: 1,
+                pdfSeparateFragments: false,
 
                 // Learn about plugins: https://revealjs.com/plugins/
                 plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
             });
+            Reveal.on('pdf-ready', () => {
+              const brand = document.querySelector("div.brand");
+              const wave = document.querySelector("div.wave");
+              document.querySelectorAll('.pdf-page').forEach(page => {
+                page.appendChild(brand.cloneNode(true));
+                page.appendChild(wave.cloneNode(true));
+              });
+            })
+
+
         </script>
     </body>
 </html>
